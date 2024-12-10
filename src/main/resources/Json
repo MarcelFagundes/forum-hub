@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Introduction to Spring Boot",
+    "message": "This topic covers the basics of Spring Boot and its main features.",
+    "creationDate": "2024-12-07T10:00:00Z",
+    "status": "OPEN",
+    "author": "John Doe",
+    "course": "Java Development"
+  },
+  {
+    "title": "Advanced JPA Techniques",
+    "message": "In this topic, we discuss advanced techniques in JPA for better performance.",
+    "creationDate": "2024-12-06T14:30:00Z",
+    "status": "CLOSED",
+    "author": "Jane Smith",
+    "course": "Java Persistence API"
+  },
+  {
+    "title": "Understanding REST APIs",
+    "message": "This topic explains the principles of RESTful APIs and their implementation.",
+    "creationDate": "2024-12-05T08:15:00Z",
+    "status": "IN_PROGRESS",
+    "author": "Alice Johnson",
+    "course": "Web Services"
+  },
+  {
+    "title": "Microservices Architecture",
+    "message": "We explore the basics and benefits of microservices architecture in this topic.",
+    "creationDate": "2024-12-07T16:45:00Z",
+    "status": "OPEN",
+    "author": "Bob Brown",
+    "course": "Distributed Systems"
+  }
+]
