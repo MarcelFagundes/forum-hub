@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 //@Getter
 //@Setter
 //@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Topics {
     @Id
