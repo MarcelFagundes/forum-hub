@@ -35,9 +35,8 @@ Este projeto é uma API RESTful desenvolvida em Java utilizando o Spring Framewo
 - **Java 17**
 - **Spring Boot 3**
 - **Spring Data JPA**
-- **H2 Database** (banco de dados em memória para desenvolvimento e testes)
+- **MySQL** (banco de dados para desenvolvimento e testes)
 - **Maven** (gerenciador de dependências)
-- **Lombok** (redução de boilerplate no código)
 
 ---
 
