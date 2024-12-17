@@ -1,10 +1,14 @@
-package com.challenge.forum_hub.forum_hub.model;
+package com.challenge.forum_hub.forum_hub.domain.topics;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public record TopicsListData(
 
+        @NotNull
+        Long id,
         @NotBlank
         String title,
         @NotBlank
@@ -18,7 +22,7 @@ public record TopicsListData(
         String course
 ) {
     public TopicsListData(Topics topics) {
-        this(topics.getTitle(), topics.getMessage(),topics.getCreation_date(), topics.getTopic_status(),
+        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreation_date(), topics.getTopic_status(),
                  topics.getAuthor(), topics.getCourse());
     }
 }

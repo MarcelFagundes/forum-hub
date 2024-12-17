@@ -1,5 +1,5 @@
 //package com.challenge.forum_hub.forum_hub.services;
-//import com.challenge.forum_hub.forum_hub.model.Topics;
+//import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 //
 //import java.util.List;
 //

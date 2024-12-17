@@ -1,6 +1,6 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
-import com.challenge.forum_hub.forum_hub.model.*;
+import com.challenge.forum_hub.forum_hub.domain.topics.*;
 import com.challenge.forum_hub.forum_hub.repository.TopicsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/topicos")
@@ -25,7 +26,7 @@ public class TopicsController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Topics> createTopics(@RequestBody @Valid TopicsCreateData dataTopic) {
+    public ResponseEntity<TopicsCreateData> createTopics(@RequestBody @Valid TopicsCreateData dataTopic, UriComponentsBuilder uribuilder) {
         // Cria uma nova entidade Topics usando os dados fornecidos
         Topics newTopic = new Topics(dataTopic);
 
@@ -33,9 +34,14 @@ public class TopicsController {
         repository.save(newTopic);
 
         // Retorna uma resposta com status 201 e o recurso criado
+//        return ResponseEntity
+//                .status(201)
+//                .body(newTopic);
+        var uri = uribuilder.path("/topicos/{id}").buildAndExpand(newTopic.getId()).toUri();
+
         return ResponseEntity
-                .status(201)
-                .body(newTopic);
+                .created(uri)
+                .body(new TopicsCreateData(newTopic));
     }
 
 //    @GetMapping
@@ -46,7 +52,7 @@ public class TopicsController {
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<TopicsListData>>> listTopics(
-        @PageableDefault(size = 10, sort = {"title"}, direction = Sort.Direction.ASC) Pageable pageable,
+        @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
         PagedResourcesAssembler<TopicsListData> assembler) {
 
         // Busca os tópicos no repositório e os transforma em DTO
@@ -67,7 +73,8 @@ public class TopicsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TopicsDetailsData> updateTopic(
+    @Transactional
+    public ResponseEntity<TopicsUpdateData> updateTopic(
         @PathVariable Long id,
         @RequestBody @Valid Topics updateData) {
 
@@ -79,12 +86,13 @@ public class TopicsController {
                 existingTopic.setAuthor(updateData.getAuthor());
                 existingTopic.setCourse(updateData.getCourse());
                 repository.save(existingTopic);
-                return ResponseEntity.ok(new TopicsDetailsData(existingTopic));
+                return ResponseEntity.ok(new TopicsUpdateData(existingTopic));
             })
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public  ResponseEntity<Object> deleteTopic(@PathVariable Long id) {
         return repository.findById(id)
             .map(topic -> {

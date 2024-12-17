@@ -1,4 +1,4 @@
-package com.challenge.forum_hub.forum_hub.model;
+package com.challenge.forum_hub.forum_hub.domain.topics;
 
 import jakarta.persistence.*;
 import lombok.*;
