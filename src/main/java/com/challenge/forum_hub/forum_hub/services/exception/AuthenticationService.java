@@ -1,5 +1,6 @@
 package com.challenge.forum_hub.forum_hub.services.exception;
 
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(repository.findByUserName(username));
         return repository.findByUserName(username);
     }
 }

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-
-
 @Table(name = "topics")
 @Entity(name = "Topics")
 //@Getter
