@@ -11,7 +11,7 @@ public record TopicsUpdateData(
                                String title,
                                //@NotBlank
                                String message,
-                               LocalDateTime creation_date,
+                               LocalDateTime creationDate,
                                //@NotBlank
                                TopicStatus topicStatus,
                                //@NotBlank
@@ -20,9 +20,7 @@ public record TopicsUpdateData(
                                String course
 ) {
     public TopicsUpdateData(Topics topics) {
-//        this(topics.getTitle(), topics.getMessage(),topics.getCreation_date(), topics.getTopic_status(),
-//                topics.getAuthor(), topics.getCourse());
-        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreation_date(),
-             topics.getTopic_status(), topics.getAuthor(), topics.getCourse());
+        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreationDate(),
+             topics.getTopicStatus(), topics.getAuthor(), topics.getCourse());
     }
 }

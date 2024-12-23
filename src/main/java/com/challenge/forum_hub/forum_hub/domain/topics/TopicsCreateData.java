@@ -17,7 +17,7 @@ public record TopicsCreateData(
         String course
 ) {
      public TopicsCreateData(Topics topics) {
-        this(topics.getTitle(), topics.getMessage(), topics.getTopic_status(),
+        this(topics.getTitle(), topics.getMessage(), topics.getTopicStatus(),
                 topics.getAuthor(), topics.getCourse());
         }
 }

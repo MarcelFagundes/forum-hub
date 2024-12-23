@@ -18,20 +18,22 @@ public class Topics {
     private String title;
     private String message;
 
-    private LocalDateTime creation_date;
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
+    @Column(name = "topic_status")
     @Enumerated(EnumType.STRING)
-    private TopicStatus topic_status;
+    private TopicStatus topicStatus;
 
     private String author;
     private String course;
 
-    public Topics(Long id, String title, String message, LocalDateTime creation_date, TopicStatus topic_status, String author, String course) {
+    public Topics(Long id, String title, String message, LocalDateTime creationDate, TopicStatus topicStatus, String author, String course) {
         this.id = id;
         this.title = title;
         this.message = message;
-        this.creation_date = LocalDateTime.now();
-        this.topic_status = topic_status;
+        this.creationDate = LocalDateTime.now();
+        this.topicStatus = topicStatus;
         this.author = author;
         this.course = course;
     }
@@ -41,9 +43,9 @@ public class Topics {
     public Topics(TopicsCreateData data){
         this.title = data.title();
         this.message = data.message();
-//        LocalDateTime creation_date;
-        this.creation_date = LocalDateTime.now();
-        this.topic_status = data.topicStatus();
+//        LocalDateTime creationDate;
+        this.creationDate = LocalDateTime.now();
+        this.topicStatus = data.topicStatus();
         this.author = data.author();
         this.course = data.course();
     }
@@ -72,20 +74,20 @@ public class Topics {
         this.message = message;
     }
 
-    public LocalDateTime getCreation_date() {
-        return creation_date;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreation_date(LocalDateTime creation_date) {
-        this.creation_date = creation_date;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public TopicStatus getTopic_status() {
-        return topic_status;
+    public TopicStatus getTopicStatus() {
+        return topicStatus;
     }
 
-    public void setTopic_status(TopicStatus topic_status) {
-        this.topic_status = topic_status;
+    public void setTopicStatus(TopicStatus topicStatus) {
+        this.topicStatus = topicStatus;
     }
 
     public String getAuthor() {

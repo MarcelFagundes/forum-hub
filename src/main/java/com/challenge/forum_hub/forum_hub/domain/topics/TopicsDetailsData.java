@@ -8,7 +8,7 @@ public record TopicsDetailsData(@NotBlank
                                 String title,
                                 @NotBlank
                                 String message,
-                                LocalDateTime creation_date,
+                                LocalDateTime creationDate,
                                 @NotBlank
                                 TopicStatus topicStatus,
                                 @NotBlank
@@ -17,7 +17,7 @@ public record TopicsDetailsData(@NotBlank
                                 String course
 ) {
     public TopicsDetailsData(Topics topics) {
-        this(topics.getTitle(), topics.getMessage(),topics.getCreation_date(), topics.getTopic_status(),
+        this(topics.getTitle(), topics.getMessage(),topics.getCreationDate(), topics.getTopicStatus(),
                 topics.getAuthor(), topics.getCourse());
     }
 }

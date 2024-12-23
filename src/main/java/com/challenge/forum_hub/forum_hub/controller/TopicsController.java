@@ -82,9 +82,10 @@ public class TopicsController {
             .map(existingTopic -> {
                 existingTopic.setTitle(updateData.getTitle());
                 existingTopic.setMessage(updateData.getMessage());
-                existingTopic.setTopic_status(updateData.getTopic_status());
+                existingTopic.setTopicStatus(updateData.getTopicStatus());
                 existingTopic.setAuthor(updateData.getAuthor());
                 existingTopic.setCourse(updateData.getCourse());
+                System.out.println(existingTopic.getTopicStatus());
                 repository.save(existingTopic);
                 return ResponseEntity.ok(new TopicsUpdateData(existingTopic));
             })

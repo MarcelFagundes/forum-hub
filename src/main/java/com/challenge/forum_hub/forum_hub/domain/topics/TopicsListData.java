@@ -13,7 +13,7 @@ public record TopicsListData(
         String title,
         @NotBlank
         String message,
-        LocalDateTime creation_date,
+        LocalDateTime creationDate,
         @NotBlank
         TopicStatus topicStatus,
         @NotBlank
@@ -22,7 +22,7 @@ public record TopicsListData(
         String course
 ) {
     public TopicsListData(Topics topics) {
-        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreation_date(), topics.getTopic_status(),
+        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreationDate(), topics.getTopicStatus(),
                  topics.getAuthor(), topics.getCourse());
     }
 }
