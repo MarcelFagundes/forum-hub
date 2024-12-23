@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.challenge.forum_hub.forum_hub.domain.user.User;
+import com.challenge.forum_hub.forum_hub.domain.user.UserAuthentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
@@ -23,7 +23,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateToken(User user) {
+    public String generateToken(UserAuthentication user) {
         System.out.println(secret);
         try {
             var algorithm = Algorithm.HMAC256(secret);

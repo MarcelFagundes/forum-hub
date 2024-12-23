@@ -6,18 +6,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "user")
-@Entity(name = "User")
+@Table(name = "user_authentication")
+@Entity(name = "UserAuthentication")
 //@Getter
 //@Setter
 //@NoArgsConstructor
 //@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User implements UserDetails {
+public class UserAuthentication implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,13 +28,13 @@ public class User implements UserDetails {
 //    @Column(name = "profile_user")
 //    private String profile;
 
-    public User(Long id, String userName, String userPassword) {
+    public UserAuthentication(Long id, String userName, String userPassword) {
         this.id = id;
         this.userName = userName;
         this.userPassword = userPassword;
     }
 
-    public User() {};
+    public UserAuthentication() {};
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,7 +71,7 @@ public class User implements UserDetails {
         return UserDetails.super.isEnabled();
     }
 
-    public User(Long id) {
+    public UserAuthentication(Long id) {
         this.id = id;
     }
 

@@ -1,6 +1,5 @@
 package com.challenge.forum_hub.forum_hub.services.exception;
 
-import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

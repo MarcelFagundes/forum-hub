@@ -1,7 +1,7 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
-import com.challenge.forum_hub.forum_hub.domain.user.AuthenticationData;
-import com.challenge.forum_hub.forum_hub.domain.user.User;
+import com.challenge.forum_hub.forum_hub.domain.user.UserAuthenticationData;
+import com.challenge.forum_hub.forum_hub.domain.user.UserAuthentication;
 
 
 import com.challenge.forum_hub.forum_hub.services.TokenService;
@@ -43,12 +43,12 @@ public class AuthenticationController {
 //    }
 
     @PostMapping
-    public ResponseEntity loginAPI(@RequestBody @Valid AuthenticationData authenticationData) {
+    public ResponseEntity loginAPI(@RequestBody @Valid UserAuthenticationData userAuthenticationData) {
         try {
-            var authenticationToken = new UsernamePasswordAuthenticationToken(authenticationData.userName(), authenticationData.userPassword());
+            var authenticationToken = new UsernamePasswordAuthenticationToken(userAuthenticationData.userName(), userAuthenticationData.userPassword());
             var authentication = manager.authenticate(authenticationToken);
 
-            var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
+            var tokenJWT = tokenService.generateToken((UserAuthentication) authentication.getPrincipal());
 
             return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
         } catch (Exception e) {
