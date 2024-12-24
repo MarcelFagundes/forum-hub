@@ -1,5 +1,6 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,7 +18,7 @@ public record TopicsListData(
         @NotBlank
         TopicStatus topicStatus,
         @NotBlank
-        String author,
+        User author,
         @NotBlank
         String course
 ) {

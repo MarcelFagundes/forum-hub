@@ -1,6 +1,6 @@
 package com.challenge.forum_hub.forum_hub.services.security;
 
-import com.challenge.forum_hub.forum_hub.repository.UserRepository;
+import com.challenge.forum_hub.forum_hub.repository.UserAuthenticationRepository;
 import com.challenge.forum_hub.forum_hub.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private UserRepository repository;
+    private UserAuthenticationRepository repository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -45,5 +45,4 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
 }

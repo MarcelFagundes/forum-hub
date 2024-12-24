@@ -1,7 +1,9 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
-import com.challenge.forum_hub.forum_hub.domain.user.UserAuthenticationData;
-import com.challenge.forum_hub.forum_hub.domain.user.UserAuthentication;
+
+
+import com.challenge.forum_hub.forum_hub.domain.userauthentication.UserAuthenticationData;
+import com.challenge.forum_hub.forum_hub.domain.userauthentication.UserAuthentication;
 
 
 import com.challenge.forum_hub.forum_hub.services.TokenService;

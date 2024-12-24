@@ -1,6 +1,7 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
 import com.challenge.forum_hub.forum_hub.domain.topics.*;
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.TopicsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,13 @@ public class TopicsController {
                 .created(uri)
                 .body(new TopicsCreateData(newTopic));
     }
-
+//
 //    @GetMapping
 //    public ResponseEntity<Page<TopicsListData>> listTopics(@PageableDefault(size=10, sort = {"title"}, direction = Sort.Direction.ASC) Pageable pageable) {
 //        var  topicos = repository.findAll(pageable).map(TopicsListData::new);
 //        return  ResponseEntity.ok(topicos);
 //    }
-
+//
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<TopicsListData>>> listTopics(
         @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,

@@ -1,5 +1,6 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public record TopicsUpdateData(
                                //@NotBlank
                                TopicStatus topicStatus,
                                //@NotBlank
-                               String author,
+                               User author,
                                //@NotBlank
                                String course
 ) {

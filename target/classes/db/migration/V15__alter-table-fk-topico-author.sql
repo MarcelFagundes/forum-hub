@@ -1,0 +1,4 @@
+ALTER TABLE topics
+ADD CONSTRAINT fk_topics_author
+FOREIGN KEY (author) REFERENCES user (id)
+ON DELETE CASCADE;
