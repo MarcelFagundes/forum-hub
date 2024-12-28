@@ -5,21 +5,32 @@ import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 public record ResponseListData(
 
-        @NotBlank
+        Long id,
+        //@NotBlank
         String message,
 
-        @NotBlank
+        //@NotBlank
         Topics topics,
 
-        @NotBlank
+        LocalDateTime creationDate,
+
+        //@NotBlank
         User author,
 
-        @NotBlank
+        //@NotBlank
         Boolean solution
 ) {
-    public ResponseListData(com.challenge.forum_hub.forum_hub.domain.response.Response user) {
-        this(user.getMessage(), user.getTopics(), user.getAuthor(), user.getSolution());
+    public ResponseListData(Response data) {
+        this(data.getId(),
+                data.getMessage(),
+                data.getTopics(),
+                data.getCreationDate(),
+                data.getAuthor(),
+                data.getSolution());
     }
+
 }

@@ -1,6 +1,7 @@
 package com.challenge.forum_hub.forum_hub.domain.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Table(name = "user")
@@ -14,22 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String password;
-
-
-
-
-
-//    @ManyToMany
-//    @JoinTable(name = "Usuario_Perfil",
-//            joinColumns = @JoinColumn(name = "usuario_id"),
-//            inverseJoinColumns = @JoinColumn(name = "perfil_id"))
-
-    //private Set<Perfil> perfis;
-
 
     public Long getId() {
         return id;
@@ -63,18 +51,23 @@ public class User {
         this.password = password;
     }
 
-//    public User() {};
+    public User() {};
 
-//    public User(Long id, String name, String email, String password) {
-//        this.id = id;
-//        this.name = name;
-//        this.email = email;
-//        this.password = password;
-//    }
+    public User(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
-    public User(UserCreateData dataUser){
-        this.name = dataUser.name();
-        this.email = dataUser.email();
-        this.password = dataUser.password();
+    public User(UserCreateData data){
+        this.name = data.name();
+        this.email = data.email();
+        this.password = data.password();
+    }
+
+    @Override
+    public String toString() {
+        return  name;
     }
 }

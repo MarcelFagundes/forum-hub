@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/resposta")
 public class ResponseController {
@@ -26,12 +28,15 @@ public class ResponseController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseCreateData> createResponse(@RequestBody ResponseCreateData dataResponse, UriComponentsBuilder uribuilder) {
+    public ResponseEntity<ResponseCreateData> createResponse(@RequestBody @Valid ResponseCreateData dataResponse, UriComponentsBuilder uribuilder) {
         // Cria uma nova entidade User usando os dados fornecidos
-        Response newResponse = new Response(dataResponse);
+        System.out.println(dataResponse.message());
+        Response newResponse = new Response();
+
+        System.out.println(newResponse.getMessage());
 
         // Salva a entidade no banco de dados
-        repository.save(newResponse);
+//        repository.save(newResponse);
 
         // Retorna uma resposta com status 201 e o recurso criado
 //        return ResponseEntity
@@ -44,18 +49,32 @@ public class ResponseController {
                 .body(new ResponseCreateData(newResponse));
     }
 
+//    @GetMapping
+//    public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listTopics(
+//        @PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
+//        PagedResourcesAssembler<ResponseListData> assembler) {
+//
+//        // Busca os tópicos no repositório e os transforma em DTO
+//        Page<ResponseListData> responsePage = repository.findAll(pageable).map(ResponseListData::new);
+//
+//        // Converte a página de dados em um modelo paginado HATEOAS
+//        PagedModel<EntityModel<ResponseListData>> responsePagedModel = assembler.toModel(responsePage);
+//
+//        System.out.println(responsePagedModel);
+//        return ResponseEntity.ok(responsePagedModel);
+//
+//    }
+
     @GetMapping
-    public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listResponse(
-        @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-        PagedResourcesAssembler<ResponseListData> assembler) {
+    public ResponseEntity<List<ResponseListData>> listResponse() {
+        // Busca todos os registros no repositório e os transforma em DTO
+        List<ResponseListData> responseList = repository.findAll().stream()
+                .map(ResponseListData::new)
+                .toList();
 
-        // Busca os tópicos no repositório e os transforma em DTO
-        Page<ResponseListData> responsePage = repository.findAll(pageable).map(ResponseListData::new);
-
-        // Converte a página de dados em um modelo paginado HATEOAS
-        PagedModel<EntityModel<ResponseListData>> responsePagedModel = assembler.toModel(responsePage);
-
-        return ResponseEntity.ok(responsePagedModel);
+        // Retorna a lista de dados como resposta
+        System.out.println(responseList);
+        return ResponseEntity.ok(responseList);
     }
 
     @GetMapping("/{id}")

@@ -17,13 +17,18 @@ public record TopicsListData(
         LocalDateTime creationDate,
         @NotBlank
         TopicStatus topicStatus,
-        @NotBlank
-        User author,
+//        @NotBlank
+//        User author,
         @NotBlank
         String course
 ) {
     public TopicsListData(Topics topics) {
-        this(topics.getId(), topics.getTitle(), topics.getMessage(),topics.getCreationDate(), topics.getTopicStatus(),
-                 topics.getAuthor(), topics.getCourse());
+        this(topics.getId(),
+                topics.getTitle(),
+                topics.getMessage(),
+                topics.getCreationDate(),
+                topics.getTopicStatus(),
+//                topics.getAuthor(),
+                topics.getCourse());
     }
 }

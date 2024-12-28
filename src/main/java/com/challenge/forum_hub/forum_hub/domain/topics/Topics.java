@@ -1,6 +1,7 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
 import com.challenge.forum_hub.forum_hub.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -26,8 +27,8 @@ public class Topics {
     @Enumerated(EnumType.STRING)
     private TopicStatus topicStatus;
 
-  //  private String author;
     @ManyToOne
+    @JoinColumn(name = "fk_user")
     private User author;
 
     private String course;
@@ -45,10 +46,10 @@ public class Topics {
 
     public Topics() {};
 
+
     public Topics(TopicsCreateData data){
         this.title = data.title();
         this.message = data.message();
-//        LocalDateTime creationDate;
         this.creationDate = LocalDateTime.now();
         this.topicStatus = data.topicStatus();
         this.author = data.author();
@@ -101,6 +102,14 @@ public class Topics {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return  topicStatus +
+//                ", author=" + author +
+                ", course='" + course + '\''
+                ;
     }
 
     //    public Long getId() {
