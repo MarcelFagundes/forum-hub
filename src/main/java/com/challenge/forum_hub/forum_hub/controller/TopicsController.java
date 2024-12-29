@@ -1,7 +1,6 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
 import com.challenge.forum_hub.forum_hub.domain.topics.*;
-import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.TopicsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +33,21 @@ public class TopicsController {
         // Salva a entidade no banco de dados
         repository.save(newTopic);
 
-        // Retorna uma resposta com status 201 e o recurso criado
-//        return ResponseEntity
-//                .status(201)
-//                .body(newTopic);
+        //         Retorna uma resposta com status 201 e o recurso criado
+        //        return ResponseEntity
+        //                .status(201)
+        //                .body(newTopic);
         var uri = uribuilder.path("/topicos/{id}").buildAndExpand(newTopic.getId()).toUri();
 
         return ResponseEntity
                 .created(uri)
                 .body(new TopicsCreateData(newTopic));
     }
-//
-//    @GetMapping
-//    public ResponseEntity<Page<TopicsListData>> listTopics(@PageableDefault(size=10, sort = {"title"}, direction = Sort.Direction.ASC) Pageable pageable) {
-//        var  topicos = repository.findAll(pageable).map(TopicsListData::new);
-//        return  ResponseEntity.ok(topicos);
-//    }
-//
+
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<TopicsListData>>> listTopics(
-        @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-        PagedResourcesAssembler<TopicsListData> assembler) {
+            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
+            PagedResourcesAssembler<TopicsListData> assembler) {
 
         // Busca os tópicos no repositório e os transforma em DTO
         Page<TopicsListData> topicosPage = repository.findAll(pageable).map(TopicsListData::new);
@@ -69,41 +62,38 @@ public class TopicsController {
     public ResponseEntity<TopicsDetailsData> getTopicDetails(@PathVariable Long id) {
         // Verifica se o tópico existe no banco de dados
         return repository.findById(id)
-            .map(topic -> ResponseEntity.ok(new TopicsDetailsData(topic)))
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(topic -> ResponseEntity.ok(new TopicsDetailsData(topic)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<TopicsUpdateData> updateTopic(
-        @PathVariable Long id,
-        @RequestBody @Valid Topics updateData) {
+            @PathVariable Long id,
+            @RequestBody Topics updateData) {
 
         return repository.findById(id)
-            .map(existingTopic -> {
-                existingTopic.setTitle(updateData.getTitle());
-                existingTopic.setMessage(updateData.getMessage());
-                existingTopic.setTopicStatus(updateData.getTopicStatus());
-//                existingTopic.getAuthor().setName(updateData.getAuthor().getName());
-
-
-                existingTopic.setCourse(updateData.getCourse());
-                System.out.println(existingTopic.getTopicStatus());
-                repository.save(existingTopic);
-                return ResponseEntity.ok(new TopicsUpdateData(existingTopic));
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(existingTopic -> {
+                    existingTopic.setTitle(updateData.getTitle());
+                    existingTopic.setMessage(updateData.getMessage());
+                    existingTopic.setTopicStatus(updateData.getTopicStatus());
+                    existingTopic.getAuthor().setName(updateData.getAuthor().getName());
+                    existingTopic.setCourse(updateData.getCourse());
+                    repository.save(existingTopic);
+                    return ResponseEntity.ok(new TopicsUpdateData(existingTopic));
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public  ResponseEntity<Object> deleteTopic(@PathVariable Long id) {
         return repository.findById(id)
-            .map(topic -> {
-                repository.deleteById(id);
-                     return ResponseEntity.noContent().build(); // Retorna 204 No Content
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
+                .map(topic -> {
+                    repository.deleteById(id);
+                    return ResponseEntity.noContent().build(); // Retorna 204 No Content
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
     }
 
     public TopicsController() {

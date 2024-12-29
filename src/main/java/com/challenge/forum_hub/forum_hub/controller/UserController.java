@@ -37,9 +37,9 @@ public class UserController {
         repository.save(newUser);
 
         // Retorna uma resposta com status 201 e o recurso criado
-//        return ResponseEntity
-//                .status(201)
-//                .body(newTopic);
+        //        return ResponseEntity
+        //                .status(201)
+        //                .body(newTopic);
         var uri = uribuilder.path("/usuario/{id}").buildAndExpand(newUser.getId()).toUri();
 
         return ResponseEntity
@@ -49,8 +49,8 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<UserListData>>> listUser(
-        @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-        PagedResourcesAssembler<UserListData> assembler) {
+            @PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
+            PagedResourcesAssembler<UserListData> assembler) {
 
         // Busca os tópicos no repositório e os transforma em DTO
         Page<UserListData> userPage = repository.findAll(pageable).map(UserListData::new);
@@ -65,37 +65,37 @@ public class UserController {
     public ResponseEntity<UserDetailsData> getUserDetails(@PathVariable Long id) {
         // Verifica se o tópico existe no banco de dados
         return repository.findById(id)
-            .map(user -> ResponseEntity.ok(new UserDetailsData(user)))
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(user -> ResponseEntity.ok(new UserDetailsData(user)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<UserUpdateData> updateUser(
-        @PathVariable Long id,
-        @RequestBody @Valid User updateData) {
+            @PathVariable Long id,
+            @RequestBody @Valid User updateData) {
 
         return repository.findById(id)
-            .map(existingUser -> {
-                existingUser.setName(updateData.getName());
-                existingUser.setEmail(updateData.getEmail());
-                existingUser.setPassword(updateData.getPassword());
-//                System.out.println(existingUser.getUserTopicStatus());
-                repository.save(existingUser);
-                return ResponseEntity.ok(new UserUpdateData(existingUser));
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(existingUser -> {
+                    existingUser.setName(updateData.getName());
+                    existingUser.setEmail(updateData.getEmail());
+                    existingUser.setPassword(updateData.getPassword());
+                    //                System.out.println(existingUser.getUserTopicStatus());
+                    repository.save(existingUser);
+                    return ResponseEntity.ok(new UserUpdateData(existingUser));
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public  ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         return repository.findById(id)
-            .map(user -> {
-                repository.deleteById(id);
-                     return ResponseEntity.noContent().build(); // Retorna 204 No Content
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
+                .map(user -> {
+                    repository.deleteById(id);
+                    return ResponseEntity.noContent().build(); // Retorna 204 No Content
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
     }
 
     public UserController() {

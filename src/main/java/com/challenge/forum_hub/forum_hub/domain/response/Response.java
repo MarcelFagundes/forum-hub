@@ -20,7 +20,6 @@ public class Response {
 
     private String message;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_topics", nullable = false)
     private Topics topics;
@@ -104,13 +103,6 @@ public class Response {
     public void setTopics(Topics topics) {
         this.topics = topics;
     }
-
-//    @Override
-//    public String toString() {
-//        return "topics=" + valueOf topics;
-//    }
-
-
 }
 
 

@@ -10,18 +10,18 @@ public record TopicsCreateData(
         String title,
         @NotBlank
         String message,
-//        @NotNull
+        @NotNull
         TopicStatus topicStatus,
-//        @NotBlank
+        @NotBlank
         User author,
         @NotBlank
         String course
 ) {
-     public TopicsCreateData(Topics topics) {
+    public TopicsCreateData(Topics topics) {
         this(topics.getTitle(),
-             topics.getMessage(),
-             topics.getTopicStatus(),
-             topics.getAuthor(),
-             topics.getCourse());
-        }
+                topics.getMessage(),
+                topics.getTopicStatus(),
+                topics.getAuthor(),
+                topics.getCourse());
+    }
 }

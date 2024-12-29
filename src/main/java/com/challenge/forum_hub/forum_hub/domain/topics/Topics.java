@@ -1,7 +1,6 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
 import com.challenge.forum_hub.forum_hub.domain.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

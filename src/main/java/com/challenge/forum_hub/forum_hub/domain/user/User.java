@@ -1,7 +1,6 @@
 package com.challenge.forum_hub.forum_hub.domain.user;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Table(name = "user")

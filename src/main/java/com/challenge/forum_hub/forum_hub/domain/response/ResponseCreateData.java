@@ -2,8 +2,6 @@ package com.challenge.forum_hub.forum_hub.domain.response;
 
 import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 import com.challenge.forum_hub.forum_hub.domain.user.User;
-import com.challenge.forum_hub.forum_hub.domain.user.UserCreateData;
-import jakarta.validation.constraints.NotBlank;
 
 
 import java.time.LocalDateTime;

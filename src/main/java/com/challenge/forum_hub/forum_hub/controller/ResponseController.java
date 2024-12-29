@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/resposta")
@@ -36,12 +35,12 @@ public class ResponseController {
         System.out.println(newResponse.getMessage());
 
         // Salva a entidade no banco de dados
-//        repository.save(newResponse);
+        //        repository.save(newResponse);
 
         // Retorna uma resposta com status 201 e o recurso criado
-//        return ResponseEntity
-//                .status(201)
-//                .body(newTopic);
+        //        return ResponseEntity
+        //                .status(201)
+        //                .body(newTopic);
         var uri = uribuilder.path("/resposta/{id}").buildAndExpand(newResponse.getId()).toUri();
 
         return ResponseEntity
@@ -51,8 +50,8 @@ public class ResponseController {
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listResponse(
-        @PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-        PagedResourcesAssembler<ResponseListData> assembler) {
+            @PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
+            PagedResourcesAssembler<ResponseListData> assembler) {
 
         // Busca os tópicos no repositório e os transforma em DTO
         Page<ResponseListData> responsePage = repository.findAll(pageable).map(ResponseListData::new);
@@ -65,54 +64,53 @@ public class ResponseController {
 
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ResponseListData>> listResponse() {
-//        // Busca todos os registros no repositório e os transforma em DTO
-//        List<ResponseListData> responseList = repository.findAll().stream()
-//                .map(ResponseListData::new)
-//                .toList();
-//
-//        // Retorna a lista de dados como resposta
-//        System.out.println(responseList);
-//        return ResponseEntity.ok(responseList);
-//    }
+    //    @GetMapping
+    //    public ResponseEntity<List<ResponseListData>> listResponse() {
+    //        // Busca todos os registros no repositório e os transforma em DTO
+    //        List<ResponseListData> responseList = repository.findAll().stream()
+    //                .map(ResponseListData::new)
+    //                .toList();
+    //
+    //        // Retorna a lista de dados como resposta
+    //        System.out.println(responseList);
+    //        return ResponseEntity.ok(responseList);
+    //    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDetailsData> getResponseDetails(@PathVariable Long id) {
         // Verifica se o tópico existe no banco de dados
         return repository.findById(id)
-            .map(response -> ResponseEntity.ok(new ResponseDetailsData(response)))
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(response -> ResponseEntity.ok(new ResponseDetailsData(response)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<ResponseUpdateData> updateResponse(
-        @PathVariable Long id,
-        @RequestBody  Response updateData) {
+            @PathVariable Long id,
+            @RequestBody  Response updateData) {
 
         return repository.findById(id)
-            .map(existingResponse -> {
-                existingResponse.setMessage(updateData.getMessage());
-                existingResponse.setTopics(updateData.getTopics());
-//                existingResponse.setAuthor(updateData.getAuthor());
-                existingResponse.setSolution(updateData.getSolution());
-
-                repository.save(existingResponse);
-                return ResponseEntity.ok(new ResponseUpdateData(existingResponse));
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .map(existingResponse -> {
+                    existingResponse.setMessage(updateData.getMessage());
+                    existingResponse.getTopics().setTitle(updateData.getTopics().getTitle());
+                    existingResponse.getAuthor().setName(updateData.getAuthor().getName());
+                    existingResponse.setSolution(updateData.getSolution());
+                    repository.save(existingResponse);
+                    return ResponseEntity.ok(new ResponseUpdateData(existingResponse));
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public  ResponseEntity<Object> deleteResponse(@PathVariable Long id) {
         return repository.findById(id)
-            .map(response -> {
-                repository.deleteById(id);
-                     return ResponseEntity.noContent().build(); // Retorna 204 No Content
-            })
-            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
+                .map(response -> {
+                    repository.deleteById(id);
+                    return ResponseEntity.noContent().build(); // Retorna 204 No Content
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna 404 se não encontrado
     }
 
     public ResponseController() {

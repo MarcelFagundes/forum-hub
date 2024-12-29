@@ -24,9 +24,9 @@ public class UserAuthentication implements UserDetails {
     private String userName;
     @Column(name = "user_password")
     private String userPassword;
-//    private String email;
-//    @Column(name = "profile_user")
-//    private String profile;
+    //    private String email;
+    //    @Column(name = "profile_user")
+    //    private String profile;
 
     public UserAuthentication(Long id, String userName, String userPassword) {
         this.id = id;

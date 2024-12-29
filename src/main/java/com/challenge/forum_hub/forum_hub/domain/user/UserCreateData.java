@@ -11,7 +11,7 @@ public record UserCreateData(
         @NotBlank
         String password
 ) {
-     public UserCreateData(User user) {
+    public UserCreateData(User user) {
         this(user.getName(), user.getEmail(), user.getPassword());
-     }
+    }
 }
