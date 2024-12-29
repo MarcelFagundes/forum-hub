@@ -33,7 +33,6 @@ public class Topics {
 
     private String course;
 
-
     public Topics(Long id, String title, String message, LocalDateTime creationDate, TopicStatus topicStatus, User author, String course) {
         this.id = id;
         this.title = title;
@@ -104,75 +103,16 @@ public class Topics {
         this.author = author;
     }
 
-    @Override
-    public String toString() {
-        return  topicStatus +
-//                ", author=" + author +
-                ", course='" + course + '\''
-                ;
-    }
-
-    //    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getMessage() {
-//        return message;
-//    }
-//
-//    public void setMessage(String message) {
-//        this.message = message;
-//    }
-//
-//    public LocalDateTime getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public void setCreationDate(LocalDateTime creationDate) {
-//        this.creationDate = creationDate;
-//    }
-//
-//    public TopicStatus getTopicStatus() {
-//        return topicStatus;
-//    }
-//
-//    public void setTopicStatus(TopicStatus topicStatus) {
-//        this.topicStatus = topicStatus;
-//    }
-//
-//    public User getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(User author) {
-//        this.author = author;
-//    }
-
-    //    public String getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(String author) {
-//        this.author = author;
-//    }
-
     public String getCourse() {
         return course;
     }
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(message);
     }
 }

@@ -2,10 +2,13 @@ package com.challenge.forum_hub.forum_hub.domain.topics;
 
 import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record TopicsDetailsData(@NotBlank
+public record TopicsDetailsData(@NotNull
+                                Long id,
+                                @NotBlank
                                 String title,
                                 @NotBlank
                                 String message,
@@ -13,12 +16,17 @@ public record TopicsDetailsData(@NotBlank
                                 @NotBlank
                                 TopicStatus topicStatus,
                                 @NotBlank
-                                User author,
+                                String author,
                                 @NotBlank
                                 String course
 ) {
     public TopicsDetailsData(Topics topics) {
-        this(topics.getTitle(), topics.getMessage(),topics.getCreationDate(), topics.getTopicStatus(),
-                topics.getAuthor(), topics.getCourse());
+        this(topics.getId(),
+                topics.getTitle(),
+                topics.getMessage(),
+                topics.getCreationDate(),
+                topics.getTopicStatus(),
+                topics.getAuthor().getName(),
+                topics.getCourse());
     }
 }

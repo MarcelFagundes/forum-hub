@@ -5,19 +5,29 @@ import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 
-public record ResponseDetailsData(@NotBlank
+import java.time.LocalDateTime;
+
+public record ResponseDetailsData(Long id,
+                                  @NotBlank
                                   String message,
 
                                   @NotBlank
-                                  Topics topics,
+                                  String topics,
+
+                                  LocalDateTime creationDate,
 
                                   @NotBlank
-                                  User author,
+                                  String author,
 
                                   @NotBlank
                                   Boolean solution
 ) {
-    public ResponseDetailsData(Response user) {
-        this(user.getMessage(), user.getTopics(), user.getAuthor(), user.getSolution());
+    public ResponseDetailsData(Response data) {
+        this(data.getId(),
+                data.getMessage(),
+                data.getTopics().getMessage(),
+                data.getCreationDate(),
+                data.getAuthor().getName(),
+                data.getSolution());
     }
 }

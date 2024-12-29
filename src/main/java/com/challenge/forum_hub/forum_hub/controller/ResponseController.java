@@ -49,33 +49,33 @@ public class ResponseController {
                 .body(new ResponseCreateData(newResponse));
     }
 
-//    @GetMapping
-//    public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listTopics(
-//        @PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-//        PagedResourcesAssembler<ResponseListData> assembler) {
-//
-//        // Busca os tópicos no repositório e os transforma em DTO
-//        Page<ResponseListData> responsePage = repository.findAll(pageable).map(ResponseListData::new);
-//
-//        // Converte a página de dados em um modelo paginado HATEOAS
-//        PagedModel<EntityModel<ResponseListData>> responsePagedModel = assembler.toModel(responsePage);
-//
-//        System.out.println(responsePagedModel);
-//        return ResponseEntity.ok(responsePagedModel);
-//
-//    }
-
     @GetMapping
-    public ResponseEntity<List<ResponseListData>> listResponse() {
-        // Busca todos os registros no repositório e os transforma em DTO
-        List<ResponseListData> responseList = repository.findAll().stream()
-                .map(ResponseListData::new)
-                .toList();
+    public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listResponse(
+        @PageableDefault(size = 5, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
+        PagedResourcesAssembler<ResponseListData> assembler) {
 
-        // Retorna a lista de dados como resposta
-        System.out.println(responseList);
-        return ResponseEntity.ok(responseList);
+        // Busca os tópicos no repositório e os transforma em DTO
+        Page<ResponseListData> responsePage = repository.findAll(pageable).map(ResponseListData::new);
+
+        // Converte a página de dados em um modelo paginado HATEOAS
+        PagedModel<EntityModel<ResponseListData>> responsePagedModel = assembler.toModel(responsePage);
+
+        System.out.println(responsePagedModel);
+        return ResponseEntity.ok(responsePagedModel);
+
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<ResponseListData>> listResponse() {
+//        // Busca todos os registros no repositório e os transforma em DTO
+//        List<ResponseListData> responseList = repository.findAll().stream()
+//                .map(ResponseListData::new)
+//                .toList();
+//
+//        // Retorna a lista de dados como resposta
+//        System.out.println(responseList);
+//        return ResponseEntity.ok(responseList);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDetailsData> getResponseDetails(@PathVariable Long id) {
@@ -89,15 +89,15 @@ public class ResponseController {
     @Transactional
     public ResponseEntity<ResponseUpdateData> updateResponse(
         @PathVariable Long id,
-        @RequestBody @Valid Response updateData) {
+        @RequestBody  Response updateData) {
 
         return repository.findById(id)
             .map(existingResponse -> {
                 existingResponse.setMessage(updateData.getMessage());
                 existingResponse.setTopics(updateData.getTopics());
-                existingResponse.setAuthor(updateData.getAuthor());
+//                existingResponse.setAuthor(updateData.getAuthor());
                 existingResponse.setSolution(updateData.getSolution());
-//                System.out.println(existingUser.getUserTopicStatus());
+
                 repository.save(existingResponse);
                 return ResponseEntity.ok(new ResponseUpdateData(existingResponse));
             })

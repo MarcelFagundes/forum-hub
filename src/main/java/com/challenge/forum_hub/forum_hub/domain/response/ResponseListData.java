@@ -10,27 +10,26 @@ import java.time.LocalDateTime;
 public record ResponseListData(
 
         Long id,
-        //@NotBlank
+        @NotBlank
         String message,
 
-        //@NotBlank
-        Topics topics,
+        @NotBlank
+        String topics,
 
         LocalDateTime creationDate,
 
-        //@NotBlank
-        User author,
+        @NotBlank
+        String author,
 
-        //@NotBlank
+        @NotBlank
         Boolean solution
 ) {
     public ResponseListData(Response data) {
         this(data.getId(),
                 data.getMessage(),
-                data.getTopics(),
+                data.getTopics().getMessage(),
                 data.getCreationDate(),
-                data.getAuthor(),
+                data.getAuthor().getName(),
                 data.getSolution());
     }
-
 }

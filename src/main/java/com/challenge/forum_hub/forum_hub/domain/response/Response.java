@@ -104,6 +104,13 @@ public class Response {
     public void setTopics(Topics topics) {
         this.topics = topics;
     }
+
+//    @Override
+//    public String toString() {
+//        return "topics=" + valueOf topics;
+//    }
+
+
 }
 
 

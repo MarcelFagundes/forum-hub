@@ -84,7 +84,9 @@ public class TopicsController {
                 existingTopic.setTitle(updateData.getTitle());
                 existingTopic.setMessage(updateData.getMessage());
                 existingTopic.setTopicStatus(updateData.getTopicStatus());
-                existingTopic.setAuthor(updateData.getAuthor());
+//                existingTopic.getAuthor().setName(updateData.getAuthor().getName());
+
+
                 existingTopic.setCourse(updateData.getCourse());
                 System.out.println(existingTopic.getTopicStatus());
                 repository.save(existingTopic);
