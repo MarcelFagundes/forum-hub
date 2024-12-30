@@ -1,7 +1,11 @@
 package com.challenge.forum_hub.forum_hub.controller;
 
 import com.challenge.forum_hub.forum_hub.domain.response.*;
+import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.ResponseRepository;
+import com.challenge.forum_hub.forum_hub.repository.TopicsRepository;
+import com.challenge.forum_hub.forum_hub.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/resposta")
@@ -25,28 +31,81 @@ public class ResponseController {
     @Autowired
     private ResponseRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TopicsRepository topicsRepository;
+
+//    @PostMapping
+//    @Transactional
+//    public ResponseEntity<ResponseCreateData> createResponse(@RequestBody @Valid ResponseCreateData dataResponse, UriComponentsBuilder uribuilder) {
+//        // Cria uma nova entidade User usando os dados fornecidos
+//        System.out.println(dataResponse.message());
+//        Response newResponse = new Response();
+//
+//        System.out.println(newResponse.getMessage());
+//
+//        // Salva a entidade no banco de dados
+//        //        repository.save(newResponse);
+//
+//        // Retorna uma resposta com status 201 e o recurso criado
+//        //        return ResponseEntity
+//        //                .status(201)
+//        //                .body(newTopic);
+//        var uri = uribuilder.path("/resposta/{id}").buildAndExpand(newResponse.getId()).toUri();
+//
+//        return ResponseEntity
+//                .created(uri)
+//                .body(new ResponseCreateData(newResponse));
+//    }
+
     @PostMapping
     @Transactional
-    public ResponseEntity<ResponseCreateData> createResponse(@RequestBody @Valid ResponseCreateData dataResponse, UriComponentsBuilder uribuilder) {
-        // Cria uma nova entidade User usando os dados fornecidos
-        System.out.println(dataResponse.message());
+    public ResponseEntity<ResponseCreateData> createResponse(
+            @RequestBody ResponseCreateData dataResponse,
+            UriComponentsBuilder uribuilder) {
+
+        // Buscar autor(es) no banco de dados
+        List<User> authors = userRepository.findByName(dataResponse.author());
+        if (authors.isEmpty()) {
+            return ResponseEntity.badRequest().build(); // Retorna 400 se o autor não for encontrado
+        }
+        if (authors.size() > 1) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Retorna 409 se houver duplicatas
+        }
+        User author = authors.get(0);
+
+        // Buscar tópico(s) no banco de dados
+        List<Topics> topics = topicsRepository.findFirstByTitle(dataResponse.topics());
+        if (topics.isEmpty()) {
+            return ResponseEntity.badRequest().build(); // Retorna 400 se o tópico não for encontrado
+        }
+        if (topics.size() > 1) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Retorna 409 se houver duplicatas
+        }
+        Topics topic = topics.get(0);
+
+        // Criar uma nova entidade Response
         Response newResponse = new Response();
+        newResponse.setMessage(dataResponse.message());
+        newResponse.setCreationDate(dataResponse.creationDate());
+        newResponse.setAuthor(author);
+        newResponse.setTopics(topic);
+        newResponse.setSolution(dataResponse.solution());
 
-        System.out.println(newResponse.getMessage());
+        // Salvar a entidade no banco de dados
+        repository.save(newResponse);
 
-        // Salva a entidade no banco de dados
-        //        repository.save(newResponse);
-
-        // Retorna uma resposta com status 201 e o recurso criado
-        //        return ResponseEntity
-        //                .status(201)
-        //                .body(newTopic);
+        // Criar URI para o recurso criado
         var uri = uribuilder.path("/resposta/{id}").buildAndExpand(newResponse.getId()).toUri();
 
+        // Retornar a resposta criada
         return ResponseEntity
                 .created(uri)
                 .body(new ResponseCreateData(newResponse));
     }
+
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<ResponseListData>>> listResponse(
@@ -91,6 +150,7 @@ public class ResponseController {
             @RequestBody  Response updateData) {
 
         return repository.findById(id)
+
                 .map(existingResponse -> {
                     existingResponse.setMessage(updateData.getMessage());
                     existingResponse.getTopics().setTitle(updateData.getTopics().getTitle());

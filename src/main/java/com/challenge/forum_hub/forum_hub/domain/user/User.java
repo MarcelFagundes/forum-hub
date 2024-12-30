@@ -1,7 +1,10 @@
 package com.challenge.forum_hub.forum_hub.domain.user;
 
+import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "user")
 @Entity(name = "User")
@@ -17,6 +20,9 @@ public class User {
     private String name;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Topics> topics;
 
     public Long getId() {
         return id;
@@ -48,6 +54,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Topics> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topics> topics) {
+        this.topics = topics;
     }
 
     public User() {};

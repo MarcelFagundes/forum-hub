@@ -1,24 +1,21 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+
 
 public record TopicsUpdateData(
-        @NotNull
+        @NotBlank
         String title,
-        @NotNull
         String message,
-        @NotNull
         TopicStatus topicStatus,
-        @NotNull
         String author,
-        @NotNull
         String course
 ) {
-    public TopicsUpdateData(Topics topics) {
-        this(topics.getTitle(),
-                topics.getMessage(),
-                topics.getTopicStatus(),
-                topics.getAuthor().getName(),
-                topics.getCourse());
+    public TopicsUpdateData(Topics data) {
+        this(data.getTitle(),
+                data.getMessage(),
+                data.getTopicStatus(),
+                data.getAuthor().getName(),
+                data.getCourse());
     }
 }

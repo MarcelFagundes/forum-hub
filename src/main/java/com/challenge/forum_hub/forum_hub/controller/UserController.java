@@ -36,10 +36,6 @@ public class UserController {
         // Salva a entidade no banco de dados
         repository.save(newUser);
 
-        // Retorna uma resposta com status 201 e o recurso criado
-        //        return ResponseEntity
-        //                .status(201)
-        //                .body(newTopic);
         var uri = uribuilder.path("/usuario/{id}").buildAndExpand(newUser.getId()).toUri();
 
         return ResponseEntity

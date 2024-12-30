@@ -24,13 +24,15 @@ public class Topics {
 
     @Column(name = "topic_status")
     @Enumerated(EnumType.STRING)
-    private TopicStatus topicStatus;
+    private TopicStatus topicStatus = TopicStatus.valueOf("OPEN");
 
-    @ManyToOne
+    //    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user")
     private User author;
 
     private String course;
+
 
     public Topics(Long id, String title, String message, LocalDateTime creationDate, TopicStatus topicStatus, User author, String course) {
         this.id = id;
@@ -45,12 +47,12 @@ public class Topics {
     public Topics() {};
 
 
-    public Topics(TopicsCreateData data){
+    public Topics(TopicsCreateData data, User author){
         this.title = data.title();
         this.message = data.message();
         this.creationDate = LocalDateTime.now();
         this.topicStatus = data.topicStatus();
-        this.author = data.author();
+        this.author = author; // Passamos o objeto User
         this.course = data.course();
     }
 

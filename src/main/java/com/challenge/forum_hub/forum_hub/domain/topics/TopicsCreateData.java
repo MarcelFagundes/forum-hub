@@ -1,19 +1,16 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
-import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public record TopicsCreateData(
-
         @NotBlank
         String title,
         @NotBlank
         String message,
-        @NotNull
+        @NotBlank
         TopicStatus topicStatus,
         @NotBlank
-        User author,
+        String author,
         @NotBlank
         String course
 ) {
@@ -21,7 +18,7 @@ public record TopicsCreateData(
         this(topics.getTitle(),
                 topics.getMessage(),
                 topics.getTopicStatus(),
-                topics.getAuthor(),
+                topics.getAuthor().getName(),
                 topics.getCourse());
     }
 }

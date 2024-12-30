@@ -2,23 +2,32 @@ package com.challenge.forum_hub.forum_hub.domain.response;
 
 import com.challenge.forum_hub.forum_hub.domain.topics.Topics;
 import com.challenge.forum_hub.forum_hub.domain.user.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 import java.time.LocalDateTime;
 
 public record ResponseCreateData(
+        @NotBlank
         String message,
-        Topics topics,
+        @NotBlank
+        String topics,
+        @NotNull
         LocalDateTime creationDate,
-        User author,
+        @NotBlank
+        String author,
+        @NotBlank
         Boolean solution
 
 ) {
     public ResponseCreateData(Response response) {
         this(response.getMessage(),
-                response.getTopics(),
+                response.getTopics().getTitle(),
                 response.getCreationDate(),
-                response.getAuthor(),
+                response.getAuthor().getName(),
                 response.getSolution());
     }
+
+
 }
