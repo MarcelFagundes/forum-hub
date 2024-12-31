@@ -1,6 +1,5 @@
 package com.challenge.forum_hub.forum_hub.domain.response;
 
-
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 

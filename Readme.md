@@ -9,24 +9,56 @@ Este projeto é uma API RESTful desenvolvida em Java utilizando o Spring Framewo
 ## Funcionalidades
 
 1. **Listagem de Tópicos**
-    - Endpoint: `GET /topicos`
-    - Retorna uma lista paginada de tópicos com informações como título, status, autor, data de criação e curso.
+   - Endpoint: `GET /topicos`
+   - Retorna uma lista paginada de tópicos com informações como título, status, autor, data de criação e curso.
 
 2. **Detalhamento de Tópico**
-    - Endpoint: `GET /topicos/{id}`
-    - Retorna os detalhes de um tópico específico baseado no ID fornecido.
+   - Endpoint: `GET /topicos/{id}`
+   - Retorna os detalhes de um tópico específico baseado no ID fornecido.
 
 3. **Criação de Tópico**
-    - Endpoint: `POST /topicos`
-    - Permite criar um novo tópico enviando os dados necessários no corpo da requisição.
+   - Endpoint: `POST /topicos`
+   - Permite criar um novo tópico enviando os dados necessários no corpo da requisição.
 
 4. **Atualização de Tópico**
-    - Endpoint: `PUT /topicos/{id}`
-    - Atualiza os dados de um tópico específico baseado no ID fornecido.
+   - Endpoint: `PUT /topicos/{id}`
+   - Atualiza os dados de um tópico específico baseado no ID fornecido.
 
 5. **Exclusão de Tópico**
-    - Endpoint: `DELETE /topicos/{id}`
-    - Remove um tópico específico baseado no ID fornecido.
+   - Endpoint: `DELETE /topicos/{id}`
+   - Remove um tópico específico baseado no ID fornecido.
+
+6. **Listagem de Usuários**
+   - Endpoint: `GET /usuario`
+   - Retorna uma lista de usuários registrados no sistema.
+
+7. **Criação de Usuário**
+   - Endpoint: `POST /usuario`
+   - Permite criar um novo usuário enviando os dados necessários no corpo da requisição.
+
+8. **Atualização de Usuário**
+   - Endpoint: `PUT /usuario/{id}`
+   - Atualiza os dados de um usuário específico baseado no ID fornecido.
+
+9. **Exclusão de Usuário**
+   - Endpoint: `DELETE /usuario/{id}`
+   - Remove um usuário específico baseado no ID fornecido.
+
+10. **Listagem de Respostas**
+   - Endpoint: `GET /respostas`
+   - Retorna uma lista de respostas para os tópicos disponíveis.
+
+11. **Criação de Resposta**
+   - Endpoint: `POST /respostas`
+   - Permite criar uma nova resposta para um tópico existente enviando os dados necessários no corpo da requisição.
+
+12. **Atualização de Resposta**
+   - Endpoint: `PUT /respostas/{id}`
+   - Atualiza os dados de uma resposta específica baseada no ID fornecido.
+
+13. **Exclusão de Resposta**
+   - Endpoint: `DELETE /respostas/{id}`
+   - Remove uma resposta específica baseada no ID fornecido.
 
 ---
 
@@ -80,6 +112,12 @@ Este projeto é uma API RESTful desenvolvida em Java utilizando o Spring Framewo
 ---
 
 ## Exemplos de Requisição
+
+Documentação da API
+A API foi documentada utilizando o Swagger. Para acessar a documentação interativa, inicie a aplicação e acesse:
+
+- **Swagger UI:** http://localhost:8080/swagger-ui.html
+- **API Docs (OpenAPI):** http://localhost:8080/v3/api-docs
 
 ### Listagem de Tópicos
 

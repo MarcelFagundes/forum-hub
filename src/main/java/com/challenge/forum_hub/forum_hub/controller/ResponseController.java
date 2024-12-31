@@ -6,6 +6,7 @@ import com.challenge.forum_hub.forum_hub.domain.user.User;
 import com.challenge.forum_hub.forum_hub.repository.ResponseRepository;
 import com.challenge.forum_hub.forum_hub.repository.TopicsRepository;
 import com.challenge.forum_hub.forum_hub.repository.UserRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/resposta")
+@SecurityRequirement(name = "bearer-key")
 public class ResponseController {
 
     @Autowired

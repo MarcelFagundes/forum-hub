@@ -2,6 +2,7 @@ package com.challenge.forum_hub.forum_hub.controller;
 
 import com.challenge.forum_hub.forum_hub.domain.user.*;
 import com.challenge.forum_hub.forum_hub.repository.UserRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/usuario")
+@SecurityRequirement(name = "bearer-key")
 public class UserController {
 
     @Autowired
