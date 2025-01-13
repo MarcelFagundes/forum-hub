@@ -1,5 +1,6 @@
 package com.challenge.forum_hub.forum_hub.domain.topics;
 
+import com.challenge.forum_hub.forum_hub.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -23,12 +24,17 @@ public class Topics {
 
     @Column(name = "topic_status")
     @Enumerated(EnumType.STRING)
-    private TopicStatus topicStatus;
+    private TopicStatus topicStatus = TopicStatus.valueOf("OPEN");
 
-    private String author;
+    //    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user")
+    private User author;
+
     private String course;
 
-    public Topics(Long id, String title, String message, LocalDateTime creationDate, TopicStatus topicStatus, String author, String course) {
+
+    public Topics(Long id, String title, String message, LocalDateTime creationDate, TopicStatus topicStatus, User author, String course) {
         this.id = id;
         this.title = title;
         this.message = message;
@@ -40,13 +46,13 @@ public class Topics {
 
     public Topics() {};
 
-    public Topics(TopicsCreateData data){
+
+    public Topics(TopicsCreateData data, User author){
         this.title = data.title();
         this.message = data.message();
-//        LocalDateTime creationDate;
         this.creationDate = LocalDateTime.now();
         this.topicStatus = data.topicStatus();
-        this.author = data.author();
+        this.author = author; // Passamos o objeto User
         this.course = data.course();
     }
 
@@ -90,11 +96,11 @@ public class Topics {
         this.topicStatus = topicStatus;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
@@ -104,5 +110,10 @@ public class Topics {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(message);
     }
 }

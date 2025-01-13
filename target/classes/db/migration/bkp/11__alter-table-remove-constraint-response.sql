@@ -1,0 +1,1 @@
+ALTER TABLE response DROP FOREIGN KEY fk_response_author;
