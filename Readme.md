@@ -188,7 +188,7 @@ Host: localhost:8080
 
 **Marcel Fagundes Souza**  
 Localização: Jundiaí, SP  
-Email: marcel@example.com  
+Email: marcelfagundes@hotmail.com  
 GitHub: [github.com/marcel-fagundes](https://github.com/marcel-fagundes)
 
 ---
